@@ -11,7 +11,7 @@ Het verzenden van individuele mailtjes naar studenten klinkt als nogal veel werk
 - je moet al je assessments/beoordelingen die je wilt verzenden in een map op je computer hebben staan in pdf formaat. 
 - de naam van het bestand moet het studentnummer zijn. niet meer, niet minder. Dus  20014505.pdf  bijvoorbeeld. De reden dat dit zo precies is is omdat het script dat gebruikt voor de addressering.
  
-Het script vind je hier: [mail-students.scp](https://github.com/spassvogel/hhs-apple-scripts/blob/main/mail-students.scpt?raw=true)
+Het script vind je hier: [mail-students.scp](https://github.com/spassvogel/hhs-apple-scripts/blob/main/mail-students.applescript?raw=true)
 
 ik zal eventuele fixes of verbeteringen hier ook doorvoeren
 

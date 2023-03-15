@@ -1,4 +1,5 @@
-
+-- Point this script to a folder with pdf files and it will mail the students these pdf files.
+-- The pdf files need to be in the format of "12345678 Firstname lastname.pdf" (where 12345678 is the student number)
 
 set _mailSuffix to "@student.hhs.nl"
 set _mailSubjectResponse to display dialog "Mail subject" default answer "Resultaten voor <VAK>" with icon note buttons {"Cancel", "Continue"} default button "Continue"
@@ -6,19 +7,20 @@ set _mailBodyResponse to display dialog "Mail body" default answer "Beste studen
 set _mailbody to replace_chars((text returned of _mailBodyResponse), linefeed, "<br/>")
 
 set myFolder to (choose folder with prompt "Where are the assessments?")
-log myFolder
 tell application "Finder"
 	set _pdfs to (every file in entire contents of myFolder whose name ends with ".pdf") as alias list
 end tell
-log _pdfs
+
 repeat with _file in _pdfs
 	tell application "Finder"
 		set _fileName to (name of (_file))
 	end tell
-	
+
 	set _fileNameNoExtension to remove_extension(_fileName)
-	set _recipient to _fileNameNoExtension & _mailSuffix
-	
+  set _number to remove_name_if_exists(_fileNameNoExtension)
+	set _recipient to _number & _mailSuffix
+
+  log(_recipient)
 	tell application "Microsoft Outlook"
 		set _message to make new outgoing message with properties {subject:(text returned of _mailSubjectResponse), content:_mailbody}
 		tell _message
@@ -48,3 +50,11 @@ on remove_extension(this_name)
 	end if
 	return this_name
 end remove_extension
+
+on remove_name_if_exists(this_filename)
+  if this_filename contains " " then
+	  set slashIndex to offset of " " in this_filename
+    set this_filename to text 1 thru (slashIndex - 1) of this_filename
+	end if
+	return this_filename
+end remove_name_if_exists

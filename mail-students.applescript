@@ -6,9 +6,11 @@ set _mailBodyResponse to display dialog "Mail body" default answer "Beste studen
 set _mailbody to replace_chars((text returned of _mailBodyResponse), linefeed, "<br/>")
 
 set myFolder to (choose folder with prompt "Where are the assessments?")
+log myFolder
 tell application "Finder"
 	set _pdfs to (every file in entire contents of myFolder whose name ends with ".pdf") as alias list
 end tell
+log _pdfs
 repeat with _file in _pdfs
 	tell application "Finder"
 		set _fileName to (name of (_file))
